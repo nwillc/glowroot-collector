@@ -1,19 +1,27 @@
-version: '3'
+version: "3.3"
 services:
   cassandra:
     container_name: cassandra
     image: cassandra:latest
-    volumes: 
+    volumes:
       - cassandra:/var/lib/cassandra
+    restart: always
     networks:
       - glowroot_net
 
   glowroot:
     container_name: glowroot
-    image: seepen/glowroot-central
+    image: glowroot/glowroot-central:0.13.4
     ports:
       - "4000:4000"
       - "8181:8181"
+    expose:
+      - "4000"
+      - "8181"
+    depends_on:
+      - cassandra
+    restart: always
+    command: ["bash", "-c", "java -jar glowroot-central.jar setup-admin-user 'admin' '${PASSWORD}' && java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -jar glowroot-central.jar"]
     volumes:
       - ./glowroot-central.properties:/glowroot-central/glowroot-central.properties
     networks:

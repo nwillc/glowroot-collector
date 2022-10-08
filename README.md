@@ -17,10 +17,11 @@ To start up the server (for sake of the example `gserver`), on gserver, a machin
 `docker-compose` and access to `docker hub` just:
 
 ```bash
+export PASSWORD=admin
 docker-compose -f docker-compose.yml up
 ```
 
-### Exposd Ports
+### Exposed Ports
 
 The server setup will expose:
 
@@ -39,7 +40,7 @@ to target `http://gserver:4000` to get the the Growroot collector UI.
 This collector server, as it name implies, needs data to be pushed into it from applications. To
 push data to `gserver`'s collector you need to do the following:
 
- - Download the [glowroot distribution](https://github.com/glowroot/glowroot/releases/download/v0.10.9/glowroot-0.10.9-dist.zip)
+ - Download the [glowroot distribution](https://github.com/glowroot/glowroot/releases/download/v0.13.4/glowroot-0.13.4-dist.zip)
  and unpack it in a location accessible to the running app, for example `/opt/glowroot`.
  
  - You should now have `/opt/glowroot/` containing the distribution, is `/opt/glowroot/glowroot.jar` present?

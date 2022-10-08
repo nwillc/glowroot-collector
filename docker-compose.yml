@@ -1,14 +1,13 @@
 version: "3.3"
-
 services:
   cassandra:
     container_name: cassandra
     image: cassandra:latest
     volumes:
-      - cassandra-data:/var/lib/cassandra
+      - cassandra:/var/lib/cassandra
     restart: always
     networks:
-      - monitoring
+      - glowroot_net
 
   glowroot:
     container_name: glowroot
@@ -26,12 +25,11 @@ services:
     volumes:
       - ./glowroot-central.properties:/glowroot-central/glowroot-central.properties
     networks:
-      - monitoring
+      - glowroot_net
 
 volumes:
-  cassandra-data:
-
-networks:
-  monitoring:
-    external:
-      name: monitoring
+  cassandra: {}
+  
+networks: 
+  glowroot_net:
+  
